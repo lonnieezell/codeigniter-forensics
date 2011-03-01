@@ -215,7 +215,7 @@ var ci_profiler_bar = {
 	<!-- Benchmarks -->
 	<?php if ($sections['benchmarks']) :?>
 		<div id="ci-profiler-benchmarks" class="ci-profiler-box" style="display: none">
-			<h2><?php echo lang('profiler_benchmarks') ?></h2>
+			<h2>Benchmarks</h2>
 			
 			<?php if (is_array($sections['benchmarks'])) : ?>
 				
@@ -236,7 +236,7 @@ var ci_profiler_bar = {
 	<!-- Queries -->
 	<?php if ($sections['queries']) :?>
 		<div id="ci-profiler-queries" class="ci-profiler-box" style="display: none">
-			<h2><?php echo lang('profiler_queries') ?></h2>
+			<h2>Queries</h2>
 			
 			<?php if (is_array($sections['queries'])) : ?>
 				
