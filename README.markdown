@@ -29,6 +29,7 @@ This function accepts any data type and simply creates a pretty, readable output
 The log_memory function has two uses.
 
 1) When no parameters are passed in, it will record the current memory usage of your script. This is perfect for watching a loop and checking for memory leaks.
+
 2) If you pass in the $variable and $name parameters, will output the amount of memory that variable is using to the console.
 
 In order to use either of these functions, you must be sure to load the Console library before you use it.
