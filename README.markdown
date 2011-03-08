@@ -33,3 +33,7 @@ The log_memory function has two uses.
 2) If you pass in the $variable and $name parameters, will output the amount of memory that variable is using to the console.
 
 In order to use either of these functions, you must be sure to load the Console library before you use it.
+
+## Other Tips
+
+You can change the location of the profiler bar by changing the class of the *codeigniter-profiler* div (around line 102) of the *profiler_template* view to one of the following four locations: 'top-right', 'top-left', 'bottom-left', and 'bottom-right'.
