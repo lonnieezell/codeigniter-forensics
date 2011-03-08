@@ -16,6 +16,8 @@ The default look, and some of the additional functionality, was heavily inspired
 
 Installing Forensics is a breeze. Copy the files to the application/libraries and application/views folder as appropriate, and you're done. Whenever you tell CI to turn on the enable the profiler (by _$this->output->enable_profiler(true)_ ) it should appear in the top right-hand corner of your screen.
 
+NOTE: If you're installing Forensics as a Spark, you must *move the profiler_template.php* file into your _application/views_ folder.
+
 ## Forensics Logging
 
 In addition to the normal information that CI's Profiler provides, you now have two new logging commands at your disposal that work with the Forensics Profiler:
