@@ -156,7 +156,7 @@ var ci_profiler_bar = {
 			</a>
 		<?php endif; ?>
 		
-		<a href="#" id="ci-profiler-menu-exit" onclick="ci_profiler_bar.close(); return false;" style="width: 2em"></a>
+		<a href="#" id="ci-profiler-menu-exit" onclick="ci_profiler_bar.close(); return false;" style="width: 2em; height: 2.1em"></a>
 	</div>
 
 <?php if (count($sections) > 0) : ?>
