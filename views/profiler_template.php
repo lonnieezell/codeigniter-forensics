@@ -2,7 +2,7 @@
 	#codeigniter-profiler { clear: both; background: #222; opacity: 0.45; padding: 0 5px; font-family: Helvetica, sans-serif; font-size: 10px !important; line-height: 12px; position: absolute; width: auto; min-width: 52em; max-width: 90%; z-index: 1000; }
 	#codeigniter-profiler:hover { background: #101010; opacity: 1.0; }
 	
-	#codeigniter-profiler.bottom-right { bottom:0; right: 0; -webkit-border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; border-top-left-radius: 7px; -webkit-box-shadow: -1px -1px 10px #222; -moz-box-shadow: -1px -1px 10px #222; box-shadow: -1px -1px 10px #222; }	
+	#codeigniter-profiler.bottom-right { position: fixed; bottom:0; right: 0; -webkit-border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; border-top-left-radius: 7px; -webkit-box-shadow: -1px -1px 10px #222; -moz-box-shadow: -1px -1px 10px #222; box-shadow: -1px -1px 10px #222; }	
 	#codeigniter-profiler.bottom-left { bottom:0; top: auto; -webkit-border-top-right-radius: 7px; -moz-border-radius-topright: 7px; border-top-right-radius: 7px; -webkit-box-shadow: 1px -1px 10px #222; -moz-box-shadow: 1px -1px 10px #222; box-shadow: 1px -1px 10px #222; }
 	#codeigniter-profiler.top-left { top:0; left: 0; -webkit-border-bottom-right-radius: 7px; -moz-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;-webkit-box-shadow: 1px 1px 10px #222; -moz-box-shadow: 1px 1px 10px #222; box-shadow: 1px 1px 10px #222; }	
 	#codeigniter-profiler.top-right { top: 0; right: 0; -webkit-border-bottom-left-radius: 7px; -moz-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px; -webkit-box-shadow: -1px 1px 10px #222; -moz-box-shadow: -1px 1px 10px #222; box-shadow: -1px 1px 10px #222; }	
@@ -86,13 +86,13 @@ var ci_profiler_bar = {
 	},
 	
 	// Add class to element
-	add_class : function(obj, class) {
+	add_class : function(obj, a_class) {
 		alert(obj);
-		document.getElementById(obj).className += " "+ class;
+		document.getElementById(obj).className += " "+ a_class;
 	},
 	
 	// Remove class from element
-	remove_class : function(obj, class) {
+	remove_class : function(obj, r_class) {
 		if (obj != undefined) {
 			document.getElementById(obj).className = document.getElementById(obj).className.replace(/\bclass\b/, '');
 		}
@@ -286,7 +286,8 @@ var ci_profiler_bar = {
 				
 				<?php if (isset($sections[$section])) :?>
 					
-					<h2><?php echo lang('profiler_'. $section) ?></h2>
+					<?php $append = ($section == 'get' || $section == 'post') ? '_data' : '' ?>
+					<h2><?php echo lang('profiler_' . $section . $append) ?></h2>
 					
 					<?php if (is_array($sections[$section])) : ?>
 						
