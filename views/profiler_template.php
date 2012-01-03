@@ -327,7 +327,7 @@ window.onload = function() {
 				<?php endif; ?>
 			
 			<!-- The Rest -->
-			<?php foreach (array('get', 'post', 'uri_string', 'controller_info', 'http_headers', 'config') as $section) : ?>
+			<?php foreach (array('get', 'post', 'uri_string', 'controller_info', 'headers', 'config') as $section) : ?>
 				
 				<?php if (isset($sections[$section])) :?>
 					
@@ -335,7 +335,7 @@ window.onload = function() {
 					<h2><?php echo lang('profiler_' . $section . $append) ?></h2>
 					
 					<?php if (is_array($sections[$section])) : ?>
-						
+					
 						<table class="main">
 						<?php foreach ($sections[$section] as $key => $val) : ?>
 							<tr><td class="hilight"><?php echo $key ?></td><td><?php echo htmlspecialchars($val) ?></td></tr>

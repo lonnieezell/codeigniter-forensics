@@ -488,6 +488,7 @@ class CI_Profiler {
 			if ($this->_compile_{$section} !== FALSE)
 			{
 				$func = "_compile_{$section}";
+				if ($section == 'http_headers') $section = 'headers';
 				$this->_sections[$section] = $this->{$func}();
 				$fields_displayed++;				
 			}
