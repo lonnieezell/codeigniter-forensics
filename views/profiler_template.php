@@ -8,7 +8,7 @@
 	#codeigniter-profiler.top-right { top: 0; right: 0; -webkit-border-bottom-left-radius: 7px; -moz-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px; -webkit-box-shadow: -1px 1px 10px #222; -moz-box-shadow: -1px 1px 10px #222; box-shadow: -1px 1px 10px #222; }	
 	
 	.ci-profiler-box { padding: 10px; margin: 0 0 10px 0; max-height: 400px; overflow: auto; color: #fff; font-family: Monaco, 'Lucida Console', 'Courier New', monospace; font-size: 11px !important; }
-	.ci-profiler-box h2 { font-family: Helvetica, sans-serif; font-weight: bold; font-size: 16px !important; padding: 0; line-height: 2.0; text-decoration: none; }
+	.ci-profiler-box h2 { font-family: Helvetica, sans-serif; font-weight: bold; font-size: 16px !important; padding: 0; line-height: 2.0; }
 	
 	#ci-profiler-vars a { text-decoration: none; }
 	
@@ -184,7 +184,7 @@ window.onload = function() {
 		<!-- Queries -->
 		<?php if (isset($sections['queries'])) : ?>
 			<a href="#" id="ci-profiler-menu-queries" onclick="ci_profiler_bar.show('ci-profiler-queries', 'ci-profiler-menu-queries'); return false;">
-				<span><?php echo is_array($sections['queries']) ? count($sections['queries']) : 0 ?> Queries</span>
+				<span><?php echo is_array($sections['queries']) ? (count($sections['queries']) - 1) : 0 ?> Queries</span>
 				Database
 			</a>
 		<?php endif; ?>
@@ -305,8 +305,10 @@ window.onload = function() {
 			<?php if (is_array($sections['queries'])) : ?>
 				
 				<table class="main" cellspacing="0">
-				<?php foreach ($sections['queries'] as $key => $val) : ?>
-					<tr><td class="hilight"><?php echo $key ?></td><td><?php echo $val ?></td></tr>
+				<?php foreach ($sections['queries'] as $key => $queries) : ?>
+					<?php foreach ($queries as $time => $query): ?>
+						<tr><td class="hilight"><?php echo $time ?></td><td><?php echo $query ?></td></tr>
+					<?php endforeach; ?>
 				<?php endforeach; ?>
 				</table>
 
