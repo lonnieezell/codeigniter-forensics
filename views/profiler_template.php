@@ -129,7 +129,7 @@ var ci_profiler_bar = {
 	
 	set_load_state : function() {
 		var cookie_state = this.read_cookie();
-		console.log('Cookie says: ' + cookie_state);
+
 		if (cookie_state == 'open') {
 			this.open();
 		} else {
