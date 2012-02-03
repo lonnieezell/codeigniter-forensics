@@ -407,7 +407,9 @@ class CI_Profiler {
 			{
 				if ($log['type'] == 'log') 
 				{
-					$logs['console'][$key]['data'] = print_r($log['data'], true);
+					$this->CI->load->library('Vd');
+					$logs['console'][$key]['data'] = Vd::dump($log['data'], '', TRUE);
+					// without vd::dump() $logs['console'][$key]['data'] = print_r($log['data'], true);
 				}
 				elseif ($log['type'] == 'memory') 
 				{
