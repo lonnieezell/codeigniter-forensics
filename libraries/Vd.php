@@ -7,7 +7,7 @@
  *
  * @category	Libraries
  * @author		Spir
- * @link		
+ * @link		https://github.com/Spir/vd-dump
  * @license		MIT
  * @version		1.0
  */
