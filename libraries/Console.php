@@ -79,7 +79,7 @@ class Console {
 	{
 		if (empty($data)) 
 		{ 
-			return; 
+			$data = 'empty';
 		}
 		
 		$log_item = array(

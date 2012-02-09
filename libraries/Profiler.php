@@ -167,9 +167,6 @@ class CI_Profiler {
 		// Load the text helper so we can highlight the SQL
 		$this->CI->load->helper('text');
 
-		// Key words we want bolded
-		$highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
-
 		foreach ($dbs as $db)
 		{
 			if (count($db->queries) == 0)
@@ -178,21 +175,17 @@ class CI_Profiler {
 			}
 			else
 			{
+				$total = 0; // total query time
+				
 				foreach ($db->queries as $key => $val)
 				{
 					$time = number_format($db->query_times[$key], 4);
-
-					/*
-					$val = highlight_code($val, ENT_QUOTES);
-
-					foreach ($highlight as $bold)
-					{
-						$val = str_replace($bold, '<strong>'.$bold.'</strong>', $val);
-					}
-					*/
-
-					$output[$time] = $val;
+					$total += $db->query_times[$key];
+					$output[][$time] = $val;
 				}
+				
+				$total = number_format($total, 4);
+				$output[][$total] = 'Total Query Execution Time';
 			}
 
 		}
@@ -488,6 +481,7 @@ class CI_Profiler {
 			if ($this->_compile_{$section} !== FALSE)
 			{
 				$func = "_compile_{$section}";
+				if ($section == 'http_headers') $section = 'headers';
 				$this->_sections[$section] = $this->{$func}();
 				$fields_displayed++;				
 			}

@@ -1,5 +1,5 @@
 <style type="text/css">
-	#codeigniter-profiler { clear: both; background: #222; opacity: 0.45; padding: 0 5px; font-family: Helvetica, sans-serif; font-size: 10px !important; line-height: 12px; position: absolute; width: auto; min-width: 52em; max-width: 90%; z-index: 1000; }
+	#codeigniter-profiler { clear: both; background: #222; opacity: 0.45; padding: 0 5px; font-family: Helvetica, sans-serif; font-size: 10px !important; line-height: 12px; position: absolute; width: auto; min-width: 52em; max-width: 90%; z-index: 1000; display: none; }
 	#codeigniter-profiler:hover { background: #101010; opacity: 1.0; }
 	
 	#codeigniter-profiler.bottom-right { position: fixed; bottom:0; right: 0; -webkit-border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; border-top-left-radius: 7px; -webkit-box-shadow: -1px -1px 10px #222; -moz-box-shadow: -1px -1px 10px #222; box-shadow: -1px -1px 10px #222; }	
@@ -9,6 +9,8 @@
 	
 	.ci-profiler-box { padding: 10px; margin: 0 0 10px 0; max-height: 400px; overflow: auto; color: #fff; font-family: Monaco, 'Lucida Console', 'Courier New', monospace; font-size: 11px !important; }
 	.ci-profiler-box h2 { font-family: Helvetica, sans-serif; font-weight: bold; font-size: 16px !important; padding: 0; line-height: 2.0; }
+	
+	#ci-profiler-vars a { text-decoration: none; }
 	
 	#ci-profiler-menu a:link, #ci-profiler-menu a:visited { display: inline-block; padding: 7px 0; margin: 0; color: #ccc; text-decoration: none; font-weight: lighter; cursor: pointer; text-align: center; width: 15.5%; border-bottom: 4px solid #444; }
 	#ci-profiler-menu a:hover, #ci-profiler-menu a.current { background-color: #222; border-color: #999; }
@@ -30,7 +32,8 @@
 	#codeigniter-profiler table .faded { color: #aaa !important; }
 	#codeigniter-profiler table .small { font-size: 10px; letter-spacing: 1px; font-weight: lighter; }
 	
-	#ci-profiler-menu-exit { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIhSURBVDjLlZPrThNRFIWJicmJz6BWiYbIkYDEG0JbBiitDQgm0PuFXqSAtKXtpE2hNuoPTXwSnwtExd6w0pl2OtPlrphKLSXhx07OZM769qy19wwAGLhM1ddC184+d18QMzoq3lfsD3LZ7Y3XbE5DL6Atzuyilc5Ciyd7IHVfgNcDYTQ2tvDr5crn6uLSvX+Av2Lk36FFpSVENDe3OxDZu8apO5rROJDLo30+Nlvj5RnTlVNAKs1aCVFr7b4BPn6Cls21AWgEQlz2+Dl1h7IdA+i97A/geP65WhbmrnZZ0GIJpr6OqZqYAd5/gJpKox4Mg7pD2YoC2b0/54rJQuJZdm6Izcgma4TW1WZ0h+y8BfbyJMwBmSxkjw+VObNanp5h/adwGhaTXF4NWbLj9gEONyCmUZmd10pGgf1/vwcgOT3tUQE0DdicwIod2EmSbwsKE1P8QoDkcHPJ5YESjgBJkYQpIEZ2KEB51Y6y3ojvY+P8XEDN7uKS0w0ltA7QGCWHCxSWWpwyaCeLy0BkA7UXyyg8fIzDoWHeBaDN4tQdSvAVdU1Aok+nsNTipIEVnkywo/FHatVkBoIhnFisOBoZxcGtQd4B0GYJNZsDSiAEadUBCkstPtN3Avs2Msa+Dt9XfxoFSNYF/Bh9gP0bOqHLAm2WUF1YQskwrVFYPWkf3h1iXwbvqGfFPSGW9Eah8HSS9fuZDnS32f71m8KFY7xs/QZyu6TH2+2+FAAAAABJRU5ErkJggg==) 0% 0% no-repeat; padding-left: 20px; position: absolute; right: 5px; top: 10px; }
+	#ci-profiler-menu-exit { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIhSURBVDjLlZPrThNRFIWJicmJz6BWiYbIkYDEG0JbBiitDQgm0PuFXqSAtKXtpE2hNuoPTXwSnwtExd6w0pl2OtPlrphKLSXhx07OZM769qy19wwAGLhM1ddC184+d18QMzoq3lfsD3LZ7Y3XbE5DL6Atzuyilc5Ciyd7IHVfgNcDYTQ2tvDr5crn6uLSvX+Av2Lk36FFpSVENDe3OxDZu8apO5rROJDLo30+Nlvj5RnTlVNAKs1aCVFr7b4BPn6Cls21AWgEQlz2+Dl1h7IdA+i97A/geP65WhbmrnZZ0GIJpr6OqZqYAd5/gJpKox4Mg7pD2YoC2b0/54rJQuJZdm6Izcgma4TW1WZ0h+y8BfbyJMwBmSxkjw+VObNanp5h/adwGhaTXF4NWbLj9gEONyCmUZmd10pGgf1/vwcgOT3tUQE0DdicwIod2EmSbwsKE1P8QoDkcHPJ5YESjgBJkYQpIEZ2KEB51Y6y3ojvY+P8XEDN7uKS0w0ltA7QGCWHCxSWWpwyaCeLy0BkA7UXyyg8fIzDoWHeBaDN4tQdSvAVdU1Aok+nsNTipIEVnkywo/FHatVkBoIhnFisOBoZxcGtQd4B0GYJNZsDSiAEadUBCkstPtN3Avs2Msa+Dt9XfxoFSNYF/Bh9gP0bOqHLAm2WUF1YQskwrVFYPWkf3h1iXwbvqGfFPSGW9Eah8HSS9fuZDnS32f71m8KFY7xs/QZyu6TH2+2+FAAAAABJRU5ErkJggg==) 0% 0% no-repeat; padding-left: 20px; position: absolute; right: 5px; top: 10px; display:none; }
+	#ci-profiler-menu-open { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAc9JREFUeNp8kr9O21AUxr9j06iqhGSBiqKypAMrIjtLBuaWNzBPEPIEJEvHInZEeAMyVJU6VMnUsY3asamULk1L/mAHSGzg3sO5l7hyAsmRvjj2Pb/vu+faYGbMq5sfL+oi76k1w1l2noEBRSyqLjJwML8O7K8mf0EPyLgQ0Wy6L2AVty4QPUNmu09P7cDU0qOtf132EQksIEeu1aKaGuHmy4qP60yVg+fQQQbKKFxqmLXw/Wtv4Qjx55c+lFPlyIGWVB07kk7g2GmrIRWgUNdjqq2++1VKj2AN4g/rOdb4Js2eFgM2cEyBjuBZEyvYqx7hdO2ktTd1BurKLfIteTY9ngB32OVrOhNQTOV+LAYjK7+zs/FbsPL/M1BD960KXZlXDAJJCUU92tJXyKuAGrovb7Mn6srzf2LWRXHqEHXo5JQBJ1IXVoeqQ1g7bhV4gIr+a0FgZAB4UwZKEjkBQ6oliXz50Jj91CpjjAp4zmvUFxSogaQP0JbEXR4iz5eUz35sNZPGV99/llNcLfljD1HSauZweExtm5gCk/qzuZFL3R7N7AAlfU5N7mFrpjFdh5Prnuym8ehDEtDMuy96M2lqptINbNYr8ryd/pDuBRgABwcgCJ3Gp98AAAAASUVORK5CYII%3D) 0% 0% no-repeat; position: fixed; right: -2px; bottom: 22px; z-index: 10000; }
 </style>
 
 <script type="text/javascript">
@@ -80,9 +83,18 @@ var ci_profiler_bar = {
 			obj.style.display = obj.style.display == 'none' ? '' : 'none';
 	},
 	
+	// open the toolbar
+	open : function() {
+		document.getElementById('ci-profiler-menu-open').style.display = 'none';
+		document.getElementById('codeigniter-profiler').style.display = 'block';
+		this.set_cookie('open');
+	},
+	
 	// close the toolbar
 	close : function() {
 		document.getElementById('codeigniter-profiler').style.display = 'none';
+		document.getElementById('ci-profiler-menu-open').style.display = 'block';
+		this.set_cookie('closed');
 	},
 	
 	// Add class to element
@@ -96,9 +108,54 @@ var ci_profiler_bar = {
 		if (obj != undefined) {
 			document.getElementById(obj).className = document.getElementById(obj).className.replace(/\bclass\b/, '');
 		}
+	},
+	
+	read_cookie : function() {
+		var nameEQ = "Profiler=";
+		var ca = document.cookie.split(';');
+		for (var i=0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+		}
+		return null;
+	},
+	
+	set_cookie : function(value) {
+		var date = new Date();
+		date.setTime(date.getTime() + (365*24*60*60*1000));
+		var expires = "; expires=" + date.toGMTString();
+		
+		document.cookie = "Profiler=" + value + expires + "; path=/";
+	},
+	
+	set_load_state : function() {
+		var cookie_state = this.read_cookie();
+		
+		if (cookie_state == 'open') {
+			this.open();
+		} else {
+			this.close();
+		}
+	},
+	
+	toggle_data_table : function(obj) {
+		if (typeof obj == 'string') {
+			obj = document.getElementById(obj + '_table');
+		}
+		
+		if (obj) {
+			obj.style.display = obj.style.display == 'none' ? '' : 'none';
+		}
 	}
 };
+
+window.onload = function() {
+	ci_profiler_bar.set_load_state();
+}
 </script>
+
+<a href="#" id="ci-profiler-menu-open" onclick="ci_profiler_bar.open(); return false;" style="width: 2em">&nbsp;</a>
 
 <div id="codeigniter-profiler" class="bottom-right">
 	
@@ -127,7 +184,7 @@ var ci_profiler_bar = {
 		<!-- Queries -->
 		<?php if (isset($sections['queries'])) : ?>
 			<a href="#" id="ci-profiler-menu-queries" onclick="ci_profiler_bar.show('ci-profiler-queries', 'ci-profiler-menu-queries'); return false;">
-				<span><?php echo is_array($sections['queries']) ? count($sections['queries']) : 0 ?> Queries</span>
+				<span><?php echo is_array($sections['queries']) ? (count($sections['queries']) - 1) : 0 ?> Queries</span>
 				Database
 			</a>
 		<?php endif; ?>
@@ -146,7 +203,7 @@ var ci_profiler_bar = {
 			</a>
 		<?php endif; ?>
 		
-		<a href="#" id="ci-profiler-menu-exit" onclick="ci_profiler_bar.close(); return false;" style="width: 2em"></a>
+		<a href="#" id="ci-profiler-menu-exit" onclick="ci_profiler_bar.close(); return false;" style="width: 2em; height: 2.1em"></a>
 	</div>
 
 <?php if (count($sections) > 0) : ?>
@@ -248,8 +305,10 @@ var ci_profiler_bar = {
 			<?php if (is_array($sections['queries'])) : ?>
 				
 				<table class="main" cellspacing="0">
-				<?php foreach ($sections['queries'] as $key => $val) : ?>
-					<tr><td class="hilight"><?php echo $key ?></td><td><?php echo $val ?></td></tr>
+				<?php foreach ($sections['queries'] as $key => $queries) : ?>
+					<?php foreach ($queries as $time => $query): ?>
+						<tr><td class="hilight"><?php echo $time ?></td><td><?php echo $query ?></td></tr>
+					<?php endforeach; ?>
 				<?php endforeach; ?>
 				</table>
 
@@ -267,12 +326,13 @@ var ci_profiler_bar = {
 			
 			<!-- User Data -->
 			<?php if (isset($sections['userdata'])) :?>
-					
-					<h2>Session User Data</h2>
+					<a href="#" onclick="ci_profiler_bar.toggle_data_table('userdata'); return false;">
+						<h2>Session User Data</h2>
+					</a>
 					
 					<?php if (is_array($sections['userdata'])) : ?>
 						
-						<table class="main">
+						<table class="main" id="userdata_table">
 						<?php foreach ($sections['userdata'] as $key => $val) : ?>
 							<tr><td class="hilight"><?php echo $key ?></td><td><?php echo htmlspecialchars($val) ?></td></tr>
 						<?php endforeach; ?>
@@ -282,26 +342,26 @@ var ci_profiler_bar = {
 				<?php endif; ?>
 			
 			<!-- The Rest -->
-			<?php foreach (array('get', 'post', 'uri_string', 'controller_info', 'http_headers', 'config') as $section) : ?>
+			<?php foreach (array('get', 'post', 'uri_string', 'controller_info', 'headers', 'config') as $section) : ?>
 				
 				<?php if (isset($sections[$section])) :?>
 					
 					<?php $append = ($section == 'get' || $section == 'post') ? '_data' : '' ?>
-					<h2><?php echo lang('profiler_' . $section . $append) ?></h2>
+					<a href="#" onclick="ci_profiler_bar.toggle_data_table('<?php echo $section ?>'); return false;">
+						<h2><?php echo lang('profiler_' . $section . $append) ?></h2>
+					</a>
 					
-					<?php if (is_array($sections[$section])) : ?>
-						
-						<table class="main">
+					
+					
+						<table class="main" id="<?php echo $section ?>_table">
+						<?php if (is_array($sections[$section])) : ?>
 						<?php foreach ($sections[$section] as $key => $val) : ?>
 							<tr><td class="hilight"><?php echo $key ?></td><td><?php echo htmlspecialchars($val) ?></td></tr>
 						<?php endforeach; ?>
+						<?php else : ?>
+							<tr><td><?php echo $sections[$section]; ?></td></tr>
+						<?php endif; ?>
 						</table>
-		
-					<?php else : ?>
-		
-						<?php echo $sections[$section]; ?>
-		
-					<?php endif; ?>
 				<?php endif; ?>
 				
 			<?php endforeach; ?>
