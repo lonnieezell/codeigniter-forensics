@@ -409,8 +409,6 @@ class CI_Profiler {
 			}
 		}
 		
-		//echo '<pre>'; print_r($logs); echo '</pre>';
-		
 		return $logs;
 	}
 	
@@ -462,9 +460,10 @@ class CI_Profiler {
 		foreach ($sizes as $sizestring) {
 	       	if ($size < 1024) { break; }
 	           if ($sizestring != $lastsizestring) { $size /= 1024; }
-	       }
-	       if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
-	       return sprintf($retstring, $size, $sizestring);
+		}
+		
+		if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
+		return sprintf($retstring, $size, $sizestring);
 	}
 	
 	//--------------------------------------------------------------------
@@ -501,7 +500,6 @@ class CI_Profiler {
 			// Load the view from system/views
 			$orig_view_path = $this->CI->load->_ci_view_path;
 			$this->CI->load->_ci_view_path = BASEPATH .'views/';
-			//echo $this->CI->load->_ci_view_path;
 
 			$output = $this->CI->load->_ci_load(array(
 					'_ci_view' 		=> 'profiler_template', 
