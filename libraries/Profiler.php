@@ -419,25 +419,28 @@ class CI_Profiler {
 	function _compile_userdata()
 	{
 		$output = array();
-	
-		$compiled_userdata = $this->CI->session->all_userdata();
 		
-		if (count($compiled_userdata))
+		if (FALSE !== $this->CI->load->is_loaded('session'))
 		{		
-			foreach ($compiled_userdata as $key => $val)
-			{
-				if (is_numeric($key))
+			$compiled_userdata = $this->CI->session->all_userdata();
+			
+			if (count($compiled_userdata))
+			{		
+				foreach ($compiled_userdata as $key => $val)
 				{
-					$output[$key] = "'$val'";
-				}
-				
-				if (is_array($val))
-				{
-					$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
-				}
-				else
-				{
-					$output[$key] = htmlspecialchars(stripslashes($val));
+					if (is_numeric($key))
+					{
+						$output[$key] = "'$val'";
+					}
+					
+					if (is_array($val))
+					{
+						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
+					}
+					else
+					{
+						$output[$key] = htmlspecialchars(stripslashes($val));
+					}
 				}
 			}
 		}
