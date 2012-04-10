@@ -409,8 +409,6 @@ class CI_Profiler {
 			}
 		}
 		
-		//echo '<pre>'; print_r($logs); echo '</pre>';
-		
 		return $logs;
 	}
 	
@@ -420,24 +418,28 @@ class CI_Profiler {
 	{
 		$output = array();
 	
-		$compiled_userdata = $this->CI->session->all_userdata();
+		if (FALSE !== $this->CI->load->is_loaded('session')) 
+		{
 		
-		if (count($compiled_userdata))
-		{		
-			foreach ($compiled_userdata as $key => $val)
-			{
-				if (is_numeric($key))
+			$compiled_userdata = $this->CI->session->all_userdata();
+
+			if (count($compiled_userdata))
+			{		
+				foreach ($compiled_userdata as $key => $val)
 				{
-					$output[$key] = "'$val'";
-				}
-				
-				if (is_array($val))
-				{
-					$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
-				}
-				else
-				{
-					$output[$key] = htmlspecialchars(stripslashes($val));
+					if (is_numeric($key))
+					{
+						$output[$key] = "'$val'";
+					}
+
+					if (is_array($val))
+					{
+						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
+					}
+					else
+					{
+						$output[$key] = htmlspecialchars(stripslashes($val));
+					}
 				}
 			}
 		}
@@ -458,9 +460,10 @@ class CI_Profiler {
 		foreach ($sizes as $sizestring) {
 	       	if ($size < 1024) { break; }
 	           if ($sizestring != $lastsizestring) { $size /= 1024; }
-	       }
-	       if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
-	       return sprintf($retstring, $size, $sizestring);
+		}
+		
+		if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
+		return sprintf($retstring, $size, $sizestring);
 	}
 	
 	//--------------------------------------------------------------------
@@ -497,7 +500,6 @@ class CI_Profiler {
 			// Load the view from system/views
 			$orig_view_path = $this->CI->load->_ci_view_path;
 			$this->CI->load->_ci_view_path = BASEPATH .'views/';
-			//echo $this->CI->load->_ci_view_path;
 
 			$output = $this->CI->load->_ci_load(array(
 					'_ci_view' 		=> 'profiler_template', 

@@ -3,9 +3,9 @@
 	#codeigniter-profiler:hover { background: #101010; opacity: 1.0; }
 	
 	#codeigniter-profiler.bottom-right { position: fixed; bottom:0; right: 0; -webkit-border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; border-top-left-radius: 7px; -webkit-box-shadow: -1px -1px 10px #222; -moz-box-shadow: -1px -1px 10px #222; box-shadow: -1px -1px 10px #222; }	
-	#codeigniter-profiler.bottom-left { bottom:0; top: auto; -webkit-border-top-right-radius: 7px; -moz-border-radius-topright: 7px; border-top-right-radius: 7px; -webkit-box-shadow: 1px -1px 10px #222; -moz-box-shadow: 1px -1px 10px #222; box-shadow: 1px -1px 10px #222; }
-	#codeigniter-profiler.top-left { top:0; left: 0; -webkit-border-bottom-right-radius: 7px; -moz-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;-webkit-box-shadow: 1px 1px 10px #222; -moz-box-shadow: 1px 1px 10px #222; box-shadow: 1px 1px 10px #222; }	
-	#codeigniter-profiler.top-right { top: 0; right: 0; -webkit-border-bottom-left-radius: 7px; -moz-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px; -webkit-box-shadow: -1px 1px 10px #222; -moz-box-shadow: -1px 1px 10px #222; box-shadow: -1px 1px 10px #222; }	
+	#codeigniter-profiler.bottom-left { position: fixed; bottom:0; left: 0; -webkit-border-top-right-radius: 7px; -moz-border-radius-topright: 7px; border-top-right-radius: 7px; -webkit-box-shadow: 1px -1px 10px #222; -moz-box-shadow: 1px -1px 10px #222; box-shadow: 1px -1px 10px #222; }
+	#codeigniter-profiler.top-left { position: fixed; top:0; left: 0; -webkit-border-bottom-right-radius: 7px; -moz-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;-webkit-box-shadow: 1px 1px 10px #222; -moz-box-shadow: 1px 1px 10px #222; box-shadow: 1px 1px 10px #222; }	
+	#codeigniter-profiler.top-right { position: fixed; top: 0; right: 0; -webkit-border-bottom-left-radius: 7px; -moz-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px; -webkit-box-shadow: -1px 1px 10px #222; -moz-box-shadow: -1px 1px 10px #222; box-shadow: -1px 1px 10px #222; }	
 	
 	.ci-profiler-box { padding: 10px; margin: 0 0 10px 0; max-height: 400px; overflow: auto; color: #fff; font-family: Monaco, 'Lucida Console', 'Courier New', monospace; font-size: 11px !important; }
 	.ci-profiler-box h2 { font-family: Helvetica, sans-serif; font-weight: bold; font-size: 16px !important; padding: 0; line-height: 2.0; }
@@ -33,7 +33,12 @@
 	#codeigniter-profiler table .small { font-size: 10px; letter-spacing: 1px; font-weight: lighter; }
 	
 	#ci-profiler-menu-exit { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAIhSURBVDjLlZPrThNRFIWJicmJz6BWiYbIkYDEG0JbBiitDQgm0PuFXqSAtKXtpE2hNuoPTXwSnwtExd6w0pl2OtPlrphKLSXhx07OZM769qy19wwAGLhM1ddC184+d18QMzoq3lfsD3LZ7Y3XbE5DL6Atzuyilc5Ciyd7IHVfgNcDYTQ2tvDr5crn6uLSvX+Av2Lk36FFpSVENDe3OxDZu8apO5rROJDLo30+Nlvj5RnTlVNAKs1aCVFr7b4BPn6Cls21AWgEQlz2+Dl1h7IdA+i97A/geP65WhbmrnZZ0GIJpr6OqZqYAd5/gJpKox4Mg7pD2YoC2b0/54rJQuJZdm6Izcgma4TW1WZ0h+y8BfbyJMwBmSxkjw+VObNanp5h/adwGhaTXF4NWbLj9gEONyCmUZmd10pGgf1/vwcgOT3tUQE0DdicwIod2EmSbwsKE1P8QoDkcHPJ5YESjgBJkYQpIEZ2KEB51Y6y3ojvY+P8XEDN7uKS0w0ltA7QGCWHCxSWWpwyaCeLy0BkA7UXyyg8fIzDoWHeBaDN4tQdSvAVdU1Aok+nsNTipIEVnkywo/FHatVkBoIhnFisOBoZxcGtQd4B0GYJNZsDSiAEadUBCkstPtN3Avs2Msa+Dt9XfxoFSNYF/Bh9gP0bOqHLAm2WUF1YQskwrVFYPWkf3h1iXwbvqGfFPSGW9Eah8HSS9fuZDnS32f71m8KFY7xs/QZyu6TH2+2+FAAAAABJRU5ErkJggg==) 0% 0% no-repeat; padding-left: 20px; position: absolute; right: 5px; top: 10px; display:none; }
-	#ci-profiler-menu-open { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAc9JREFUeNp8kr9O21AUxr9j06iqhGSBiqKypAMrIjtLBuaWNzBPEPIEJEvHInZEeAMyVJU6VMnUsY3asamULk1L/mAHSGzg3sO5l7hyAsmRvjj2Pb/vu+faYGbMq5sfL+oi76k1w1l2noEBRSyqLjJwML8O7K8mf0EPyLgQ0Wy6L2AVty4QPUNmu09P7cDU0qOtf132EQksIEeu1aKaGuHmy4qP60yVg+fQQQbKKFxqmLXw/Wtv4Qjx55c+lFPlyIGWVB07kk7g2GmrIRWgUNdjqq2++1VKj2AN4g/rOdb4Js2eFgM2cEyBjuBZEyvYqx7hdO2ktTd1BurKLfIteTY9ngB32OVrOhNQTOV+LAYjK7+zs/FbsPL/M1BD960KXZlXDAJJCUU92tJXyKuAGrovb7Mn6srzf2LWRXHqEHXo5JQBJ1IXVoeqQ1g7bhV4gIr+a0FgZAB4UwZKEjkBQ6oliXz50Jj91CpjjAp4zmvUFxSogaQP0JbEXR4iz5eUz35sNZPGV99/llNcLfljD1HSauZweExtm5gCk/qzuZFL3R7N7AAlfU5N7mFrpjFdh5Prnuym8ehDEtDMuy96M2lqptINbNYr8ryd/pDuBRgABwcgCJ3Gp98AAAAASUVORK5CYII%3D) 0% 0% no-repeat; position: fixed; right: -2px; bottom: 22px; z-index: 10000; }
+	#ci-profiler-menu-open { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAc9JREFUeNp8kr9O21AUxr9j06iqhGSBiqKypAMrIjtLBuaWNzBPEPIEJEvHInZEeAMyVJU6VMnUsY3asamULk1L/mAHSGzg3sO5l7hyAsmRvjj2Pb/vu+faYGbMq5sfL+oi76k1w1l2noEBRSyqLjJwML8O7K8mf0EPyLgQ0Wy6L2AVty4QPUNmu09P7cDU0qOtf132EQksIEeu1aKaGuHmy4qP60yVg+fQQQbKKFxqmLXw/Wtv4Qjx55c+lFPlyIGWVB07kk7g2GmrIRWgUNdjqq2++1VKj2AN4g/rOdb4Js2eFgM2cEyBjuBZEyvYqx7hdO2ktTd1BurKLfIteTY9ngB32OVrOhNQTOV+LAYjK7+zs/FbsPL/M1BD960KXZlXDAJJCUU92tJXyKuAGrovb7Mn6srzf2LWRXHqEHXo5JQBJ1IXVoeqQ1g7bhV4gIr+a0FgZAB4UwZKEjkBQ6oliXz50Jj91CpjjAp4zmvUFxSogaQP0JbEXR4iz5eUz35sNZPGV99/llNcLfljD1HSauZweExtm5gCk/qzuZFL3R7N7AAlfU5N7mFrpjFdh5Prnuym8ehDEtDMuy96M2lqptINbNYr8ryd/pDuBRgABwcgCJ3Gp98AAAAASUVORK5CYII%3D) 0% 0% no-repeat; z-index: 10000; }
+	
+	#ci-profiler-menu-open.bottom-right { position: fixed; right: -2px; bottom: 22px; }
+	#ci-profiler-menu-open.bottom-left { position: fixed; left: 10px; bottom: 22px; }
+	#ci-profiler-menu-open.top-left { position: fixed; left: 10px; top: 22px; }
+	#ci-profiler-menu-open.top-right { position: fixed; right: -2px; top: 22px; }
 </style>
 
 <script type="text/javascript">
@@ -155,7 +160,7 @@ window.onload = function() {
 }
 </script>
 
-<a href="#" id="ci-profiler-menu-open" onclick="ci_profiler_bar.open(); return false;" style="width: 2em">&nbsp;</a>
+<a href="#" id="ci-profiler-menu-open" class="bottom-right" onclick="ci_profiler_bar.open(); return false;" style="width: 2em">&nbsp;</a>
 
 <div id="codeigniter-profiler" class="bottom-right">
 	
@@ -402,7 +407,3 @@ window.onload = function() {
 <?php endif; ?>
 
 </div>	<!-- /codeigniter_profiler -->
-
-<pre>
-<?php //print_r($sections); ?>
-</pre>
