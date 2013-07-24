@@ -339,7 +339,7 @@ window.onload = function() {
 						
 						<table class="main" id="userdata_table">
 						<?php foreach ($sections['userdata'] as $key => $val) : ?>
-							<tr><td class="hilight"><?php echo $key ?></td><td><?php echo htmlspecialchars($val) ?></td></tr>
+							<tr><td class="hilight"><?php echo $key ?></td><td><?php echo $val ?></td></tr>
 						<?php endforeach; ?>
 						</table>
 		
