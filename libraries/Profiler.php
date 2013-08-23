@@ -233,7 +233,7 @@ class CI_Profiler extends CI_Loader {
 
 		$get = $this->CI->input->get();
 
-		if (count($get) == 0)
+		if (count($get) == 0 || $get === false)
 		{
 			$output = $this->CI->lang->line('profiler_no_get');
 		}
