@@ -1,0 +1,24 @@
+{
+    "name": "lonnieezell/codeigniter-forensics",
+    "description": "A high-powered, customizable Profiler replacement for CodeIgniter.",
+    "license": "MIT",
+    "keywords": [
+        "codeigniter", "spark", "sparks"
+    ],
+    "authors": [
+        {
+            "name": "Lonnie Ezell",
+            "email": "lonnieezell@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "http://lonnieezell.github.io/codeigniter-forensics/",
+    "support": {
+        "issues": "http://lonnieezell.github.io/codeigniter-forensics/issues",
+        "source": "http://lonnieezell.github.io/codeigniter-forensics/"
+    },
+    "type": "codeigniter-spark",
+    "require": {
+        "compwright/codeigniter-installers": "*"
+    }
+}
