@@ -15,7 +15,20 @@ The default look, and some of the additional functionality, was heavily inspired
 
 ## Installing
 
-Forensics is intended to be installed as a [Spark](http://getsparks.org). Please see their site for more information.
+Forensics is intended to be used as a [Spark](http://getsparks.org). However, it is best installed using [Composer](http://getcomposer.org/). 
+
+Create a `composer.json` file in your application's root (alongside the application and spark folders). Add the following text in the new file: 
+
+    {
+        "require": {
+            "lonnieezell/codeigniter-forensics": "dev-master"
+        }
+    }
+
+In your application, you will first need to load the newly installed spark, then enable the profiler like normal. 
+
+    $this->load->spark('codeigniter-forensics');
+    $this->output->enable_profiler(true);
 
 ## Forensics Logging
 
