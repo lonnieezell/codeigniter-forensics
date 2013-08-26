@@ -3,7 +3,7 @@
     "description": "A high-powered, customizable Profiler replacement for CodeIgniter.",
     "license": "MIT",
     "keywords": [
-        "codeigniter", "spark", "sparks"
+        "codeigniter", "spark", "profiler", "debug"
     ],
     "authors": [
         {
