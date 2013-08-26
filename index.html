@@ -48,7 +48,22 @@
 <h2>
 <a name="installing" class="anchor" href="#installing"><span class="octicon octicon-link"></span></a>Installing</h2>
 
-<p>Forensics is intended to be installed as a <a href="http://getsparks.org">Spark</a>. Please see their site for more information.</p>
+<p>Forensics is intended to be used as a <a href="http://getsparks.org">Spark</a>. However, it is best installed using <a href="http://getcomposer.org/">Composer</a>. </p>
+
+<p>Create a <code>composer.json</code> file in your application's root (alongside the application and spark folders). Add the following text in the new file: </p>
+
+<pre><code>{
+    "require": {
+        "lonnieezell/codeigniter-forensics": "dev-master"
+    }
+}
+</code></pre>
+
+<p>In your application, you will first need to load the newly installed spark, then enable the profiler like normal. </p>
+
+<pre><code>$this-&gt;load-&gt;spark('codeigniter-forensics');
+$this-&gt;output-&gt;enable_profiler(true);
+</code></pre>
 
 <h2>
 <a name="forensics-logging" class="anchor" href="#forensics-logging"><span class="octicon octicon-link"></span></a>Forensics Logging</h2>
