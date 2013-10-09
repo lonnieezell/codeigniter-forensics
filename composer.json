@@ -17,7 +17,7 @@
         "issues": "http://lonnieezell.github.io/codeigniter-forensics/issues",
         "source": "http://lonnieezell.github.io/codeigniter-forensics/"
     },
-    "type": "codeigniter-spark",
+    "type": "codeigniter-third-party",
     "require": {
         "compwright/codeigniter-installers": "*"
     }
