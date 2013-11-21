@@ -187,33 +187,34 @@ class CI_Profiler extends CI_Loader {
 		// Key words we want bolded
 		$highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
 
+
+		$total = 0; // total query time
 		foreach ($dbs as $db)
 		{
-			if (count($db->queries) == 0)
-			{
-				$output = $this->CI->lang->line('profiler_no_queries');
-			}
-			else
-			{
-				$total = 0; // total query time
 
-				foreach ($db->queries as $key => $val)
+			foreach ($db->queries as $key => $val)
+			{
+				$time = number_format($db->query_times[$key], 4);
+				$total += $db->query_times[$key];
+
+				foreach ($highlight as $bold)
 				{
-					$time = number_format($db->query_times[$key], 4);
-					$total += $db->query_times[$key];
-
-					foreach ($highlight as $bold)
-					{
-						$val = str_replace($bold, '<b>'. $bold .'</b>', $val);
-					}
-
-					$output[][$time] = $val;
+					$val = str_replace($bold, '<b>'. $bold .'</b>', $val);
 				}
 
-				$total = number_format($total, 4);
-				$output[][$total] = 'Total Query Execution Time';
+				$output[][$time] = $val;
 			}
 
+		}
+
+		if(count($output) == 0)
+		{
+			$output = $this->CI->lang->line('profiler_no_queries');
+		}
+		else
+		{
+			$total = number_format($total, 4);
+			$output[][$total] = 'Total Query Execution Time';
 		}
 
 		return $output;
