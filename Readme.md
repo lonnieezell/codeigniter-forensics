@@ -25,9 +25,12 @@ Create a `composer.json` file in your application's root (alongside the applicat
         }
     }
 
-In your application, you will first need to load the newly installed spark, then enable the profiler like normal. 
+Thanks to the magic of `compwright/composer-installers` the files are transferred to your application's `third_party` folder. In your application, you will first need to load the newly installed package.  This is  done easily through the autoloader, but could also be done in your controller with an environment check for maximum optimization. 
 
-    $this->load->spark('codeigniter-forensics');
+    $autoload['packages'] = array(APPPATH.'third_party/codeigniter-forensics');
+
+Then, just enable the profiler like normal.
+    
     $this->output->enable_profiler(true);
 
 ## Forensics Logging
