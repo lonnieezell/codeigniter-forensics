@@ -42,6 +42,7 @@ class CI_Profiler extends CI_Loader {
 										'uri_string',
 										'controller_info',
 										'queries',
+										'eloquent',
 										'http_headers',
 										'config',
 										'files',
@@ -215,6 +216,59 @@ class CI_Profiler extends CI_Loader {
 		{
 			$total = number_format($total, 4);
 			$output[][$total] = 'Total Query Execution Time';
+		}
+
+		return $output;
+	}
+	
+	
+	// --------------------------------------------------------------------
+
+	/**
+	 * Compile Eloquent Queries
+	 *
+	 * @return	string
+	 */
+	protected function _compile_eloquent()
+	{
+		$output = array();
+		
+		// hack to make eloquent not throw error for now
+		$this->CI->load->model('eloquent/assets/action');
+		
+		if ( ! class_exists('Illuminate\Database\Capsule\Manager')) {
+			$output = 'Illuminate\Database has not been loaded.';
+		} else {
+			// Load the text helper so we can highlight the SQL
+			$this->CI->load->helper('text');
+
+			// Key words we want bolded
+			$highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
+		
+		
+			$total = 0; // total query time
+			$queries = Illuminate\Database\Capsule\Manager::getQueryLog();
+			foreach ($queries as $q)
+			{
+				$time = number_format($q['time']/1000, 4);
+				$total += $q['time']/1000;
+			
+				$query = interpolateQuery($q['query'], $q['bindings']);
+				foreach ($highlight as $bold)
+					$query = str_ireplace($bold, '<b>'.$bold.'</b>', $query);
+			
+				$output[][$time] = $query;
+			}
+
+			if(count($output) == 0)
+			{
+				$output = $this->CI->lang->line('profiler_no_queries');
+			}
+			else
+			{
+				$total = number_format($total, 4);
+				$output[][$total] = 'Total Query Execution Time';
+			}
 		}
 
 		return $output;

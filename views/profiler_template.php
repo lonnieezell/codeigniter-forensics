@@ -9,11 +9,11 @@
 			- bottom
 			- top
 	 */
-	$bar_location = 'bottom-left';
+	$bar_location = 'bottom-right';
 ?>
 
 <style type="text/css">
-	#codeigniter-profiler { clear: both; background: #222; padding: 0 5px; font-family: Helvetica, sans-serif; font-size: 10px !important; line-height: 12px; position: absolute; width: auto; min-width: 52em; max-width: 90%; z-index: 1000; display: none; }
+	#codeigniter-profiler { clear: both; background: #222; padding: 0 5px; font-family: Helvetica, sans-serif; font-size: 10px !important; line-height: 12px; position: absolute; width: auto; min-width: 74em; max-width: 90%; z-index: 1000; display: none; }
 
 	#codeigniter-profiler.bottom-right { position: fixed; bottom:0; right: 0; -webkit-border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; border-top-left-radius: 7px; -webkit-box-shadow: -1px -1px 10px #999; -moz-box-shadow: -1px -1px 10px #999; box-shadow: -1px -1px 10px #999; }
 	#codeigniter-profiler.bottom-left { position: fixed; bottom:0; left: 0; -webkit-border-top-right-radius: 7px; -moz-border-radius-topright: 7px; border-top-right-radius: 7px; -webkit-box-shadow: 1px -1px 10px #999; -moz-box-shadow: 1px -1px 10px #999; box-shadow: 1px -1px 10px #999; }
@@ -27,13 +27,14 @@
 
 	#ci-profiler-vars a { text-decoration: none; }
 
-	#ci-profiler-menu a:link, #ci-profiler-menu a:visited { display: inline-block; padding: 7px 0; margin: 0; color: #ccc; text-decoration: none; font-weight: lighter; cursor: pointer; text-align: center; width: 15.5%; border-bottom: 4px solid #444; }
+	#ci-profiler-menu a:link, #ci-profiler-menu a:visited { display: inline-block; padding: 7px 0; margin: 0; color: #ccc; text-decoration: none; font-weight: lighter; cursor: pointer; text-align: center; width: 13%; border-bottom: 4px solid #444; }
 	#ci-profiler-menu a:hover, #ci-profiler-menu a.current { background-color: #222; border-color: #999; }
 	#ci-profiler-menu a span { display: block; font-weight: bold; font-size: 16px !important; line-height: 1.2; }
 
 	#ci-profiler-menu-time span, #ci-profiler-benchmarks h2 { color: #B72F09; }
 	#ci-profiler-menu-memory span, #ci-profiler-memory h2 { color: #953FA1; }
 	#ci-profiler-menu-queries span, #ci-profiler-queries h2 { color: #3769A0; }
+	#ci-profiler-menu-eloquent span, #ci-profiler-eloquent h2 { color: #f4726d; }
 	#ci-profiler-menu-vars span, #ci-profiler-vars h2 { color: #D28C00; }
 	#ci-profiler-menu-files span, #ci-profiler-files h2 { color: #5a8616; }
 	#ci-profiler-menu-console span, #ci-profiler-console h2 { color: #5a8616; }
@@ -208,6 +209,14 @@ window.onload = function() {
 				Database
 			</a>
 		<?php endif; ?>
+		
+		<!-- Eloquent -->
+		<?php if (isset($sections['eloquent'])) : ?>
+			<a href="#" id="ci-profiler-menu-eloquent" onclick="ci_profiler_bar.show('ci-profiler-eloquent', 'ci-profiler-menu-eloquent'); return false;">
+				<span><?php echo is_array($sections['eloquent']) ? (count($sections['eloquent']) - 1) : 0 ?> Eloquent</span>
+				Illuminate\Database
+			</a>
+		<?php endif; ?>
 
 		<!-- Vars and Config -->
 		<?php if (isset($sections['http_headers']) || isset($sections['get']) || isset($sections['config']) || isset($sections['post']) || isset($sections['uri_string']) || isset($sections['controller_info'])) : ?>
@@ -335,6 +344,29 @@ window.onload = function() {
 			<?php else : ?>
 
 				<?php echo $sections['queries']; ?>
+
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
+
+	<!-- Eloquent -->
+	<?php if (isset($sections['queries'])) :?>
+		<div id="ci-profiler-eloquent" class="ci-profiler-box" style="display: none">
+			<h2>Eloquent</h2>
+
+			<?php if (is_array($sections['eloquent'])) : ?>
+
+				<table class="main" cellspacing="0">
+				<?php foreach ($sections['eloquent'] as $key => $queries) : ?>
+					<?php foreach ($queries as $time => $query): ?>
+						<tr><td class="hilight"><?php echo $time ?></td><td><?php echo $query ?></td></tr>
+					<?php endforeach; ?>
+				<?php endforeach; ?>
+				</table>
+
+			<?php else : ?>
+
+				<?php echo $sections['eloquent']; ?>
 
 			<?php endif; ?>
 		</div>
