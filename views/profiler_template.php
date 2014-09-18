@@ -350,7 +350,7 @@ window.onload = function() {
 	<?php endif; ?>
 
 	<!-- Eloquent -->
-	<?php if (isset($sections['queries'])) :?>
+	<?php if (isset($sections['eloquent'])) :?>
 		<div id="ci-profiler-eloquent" class="ci-profiler-box" style="display: none">
 			<h2>Eloquent</h2>
 
