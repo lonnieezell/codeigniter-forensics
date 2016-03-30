@@ -234,7 +234,7 @@ class CI_Profiler extends CI_Loader {
 		$output = array();
 		
 		// hack to make eloquent not throw error for now
-		$this->CI->load->model('eloquent/assets/action');
+		$this->CI->load->model('Eloquent/Assets/Action');
 		
 		if ( ! class_exists('Illuminate\Database\Capsule\Manager')) {
 			$output = 'Illuminate\Database has not been loaded.';
