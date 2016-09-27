@@ -220,8 +220,8 @@ class CI_Profiler extends CI_Loader {
 
 		return $output;
 	}
-	
-	
+
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -232,10 +232,13 @@ class CI_Profiler extends CI_Loader {
 	protected function _compile_eloquent()
 	{
 		$output = array();
-		
+
 		// hack to make eloquent not throw error for now
-		$this->CI->load->model('Eloquent/Assets/Action');
-		
+		// but checks if file actually exists, or CI will throw an error
+		if (file_exists(APPPATH.'/models/Eloquent/Assets/Action.php')) {
+			$this->CI->load->model('Eloquent/Assets/Action');
+		}
+
 		if ( ! class_exists('Illuminate\Database\Capsule\Manager')) {
 			$output = 'Illuminate\Database has not been loaded.';
 		} else {
@@ -244,19 +247,19 @@ class CI_Profiler extends CI_Loader {
 
 			// Key words we want bolded
 			$highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
-		
-		
+
+
 			$total = 0; // total query time
 			$queries = Illuminate\Database\Capsule\Manager::getQueryLog();
 			foreach ($queries as $q)
 			{
 				$time = number_format($q['time']/1000, 4);
 				$total += $q['time']/1000;
-			
+
 				$query = $this->interpolateQuery($q['query'], $q['bindings']);
 				foreach ($highlight as $bold)
 					$query = str_ireplace($bold, '<b>'.$bold.'</b>', $query);
-			
+
 				$output[][$time] = $query;
 			}
 
