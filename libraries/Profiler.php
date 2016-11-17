@@ -565,7 +565,7 @@ class CI_Profiler extends CI_Loader {
 	 */
 	public function _compile_view_data()
 	{
-		$output = '';
+		$output = array();
 
 		foreach ($this->_ci_cached_vars as $key => $val)
 		{
