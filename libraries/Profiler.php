@@ -169,17 +169,30 @@ class CI_Profiler extends CI_Loader {
 		$output = array();
 
 		// Let's determine which databases are currently connected to
-		foreach (get_object_vars($this->CI) as $CI_object)
+		foreach (get_object_vars($this->CI) as $name => $cobject)
 		{
-			if (is_object($CI_object) && is_subclass_of(get_class($CI_object), 'CI_DB') )
+			if ($cobject)
 			{
-				$dbs[] = $CI_object;
+				if ($cobject instanceof CI_DB)
+				{
+					$dbs[$name] = $cobject;
+				}
+				elseif ($cobject instanceof CI_Model)
+				{
+					foreach (get_object_vars($cobject) as $mname => $mobject)
+					{
+						if ($mobject instanceof CI_DB)
+						{
+							$dbs[$mname] = $mobject;
+						}
+					}
+				}
 			}
 		}
 
 		if (count($dbs) == 0)
 		{
-			return $this->CI->lang->line('profiler_no_db');
+			return $this->CI->lang->line('profiler_no_db'); // to get db access must be public instance
 		}
 
 		// Load the text helper so we can highlight the SQL
@@ -190,7 +203,7 @@ class CI_Profiler extends CI_Loader {
 
 
 		$total = 0; // total query time
-		foreach ($dbs as $db)
+		foreach ($dbs as $controler => $db)
 		{
 
 			foreach ($db->queries as $key => $val)
@@ -203,7 +216,7 @@ class CI_Profiler extends CI_Loader {
 					$val = str_replace($bold, '<b>'. $bold .'</b>', $val);
 				}
 
-				$output[][$time] = $val;
+				$output[][$time] = $controler.':'.$db->database.' ' . $val; // there's a filter CI plugin, so must show controler name, tho mention on wich controler was exec the query if some filter was applied
 			}
 
 		}
