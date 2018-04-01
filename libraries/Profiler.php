@@ -252,7 +252,7 @@ class CI_Profiler extends CI_Loader {
 			$this->CI->load->model('Eloquent/Assets/Action');
 		}
 
-		if ( ! class_exists('Illuminate\Database\Capsule\Manager')) {
+		if ( ! class_exists('Illuminate\Database\Capsule\Manager', FALSE)) {
 			$output = 'Illuminate\Database has not been loaded.';
 		} else {
 			// Load the text helper so we can highlight the SQL
