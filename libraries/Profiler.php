@@ -549,16 +549,19 @@ class CI_Profiler extends CI_Loader {
 				{
 					if (is_numeric($key))
 					{
-						$output[$key] = "'$val'";
+						$output[$key] = print_r($val,true);
 					}
 
 					if (is_array($val) || is_object($val))
 					{
-						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
+						if (is_object($val))
+							$output[$key] = json_decode(json_encode($val), true);
+						else
+							$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
 					}
 					else
 					{
-						$output[$key] = htmlspecialchars(stripslashes($val));
+						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
 					}
 				}
 			}
