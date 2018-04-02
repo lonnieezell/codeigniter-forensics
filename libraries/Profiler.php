@@ -421,7 +421,7 @@ class CI_Profiler extends CI_Loader {
 	 */
 	protected function _compile_controller_info()
 	{
-		$output = $this->CI->router->fetch_class()."/".$this->CI->router->fetch_method();
+		$output = $this->CI->router->class."/".$this->CI->router->method;
 
 		return $output;
 	}
