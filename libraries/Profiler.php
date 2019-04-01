@@ -169,17 +169,30 @@ class CI_Profiler extends CI_Loader {
 		$output = array();
 
 		// Let's determine which databases are currently connected to
-		foreach (get_object_vars($this->CI) as $CI_object)
+		foreach (get_object_vars($this->CI) as $name => $cobject)
 		{
-			if (is_object($CI_object) && is_subclass_of(get_class($CI_object), 'CI_DB') )
+			if ($cobject)
 			{
-				$dbs[] = $CI_object;
+				if ($cobject instanceof CI_DB)
+				{
+					$dbs[$name] = $cobject;
+				}
+				elseif ($cobject instanceof CI_Model)
+				{
+					foreach (get_object_vars($cobject) as $mname => $mobject)
+					{
+						if ($mobject instanceof CI_DB)
+						{
+							$dbs[$mname] = $mobject;
+						}
+					}
+				}
 			}
 		}
 
 		if (count($dbs) == 0)
 		{
-			return $this->CI->lang->line('profiler_no_db');
+			return $this->CI->lang->line('profiler_no_db'); // to get db access must be public instance
 		}
 
 		// Load the text helper so we can highlight the SQL
@@ -190,7 +203,7 @@ class CI_Profiler extends CI_Loader {
 
 
 		$total = 0; // total query time
-		foreach ($dbs as $db)
+		foreach ($dbs as $controler => $db)
 		{
 
 			foreach ($db->queries as $key => $val)
@@ -203,7 +216,7 @@ class CI_Profiler extends CI_Loader {
 					$val = str_replace($bold, '<b>'. $bold .'</b>', $val);
 				}
 
-				$output[][$time] = $val;
+				$output[][$time] = $controler.':'.$db->database.' ' . $val; // there's a filter CI plugin, so must show controler name, tho mention on wich controler was exec the query if some filter was applied
 			}
 
 		}
@@ -220,8 +233,8 @@ class CI_Profiler extends CI_Loader {
 
 		return $output;
 	}
-	
-	
+
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -232,11 +245,14 @@ class CI_Profiler extends CI_Loader {
 	protected function _compile_eloquent()
 	{
 		$output = array();
-		
+
 		// hack to make eloquent not throw error for now
-		$this->CI->load->model('Eloquent/Assets/Action');
-		
-		if ( ! class_exists('Illuminate\Database\Capsule\Manager')) {
+		// but checks if file actually exists, or CI will throw an error
+		if (file_exists(APPPATH.'/models/Eloquent/Assets/Action.php')) {
+			$this->CI->load->model('Eloquent/Assets/Action');
+		}
+
+		if ( ! class_exists('Illuminate\Database\Capsule\Manager', FALSE)) {
 			$output = 'Illuminate\Database has not been loaded.';
 		} else {
 			// Load the text helper so we can highlight the SQL
@@ -244,19 +260,19 @@ class CI_Profiler extends CI_Loader {
 
 			// Key words we want bolded
 			$highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
-		
-		
+
+
 			$total = 0; // total query time
 			$queries = Illuminate\Database\Capsule\Manager::getQueryLog();
 			foreach ($queries as $q)
 			{
 				$time = number_format($q['time']/1000, 4);
 				$total += $q['time']/1000;
-			
+
 				$query = $this->interpolateQuery($q['query'], $q['bindings']);
 				foreach ($highlight as $bold)
 					$query = str_ireplace($bold, '<b>'.$bold.'</b>', $query);
-			
+
 				$output[][$time] = $query;
 			}
 
@@ -405,7 +421,7 @@ class CI_Profiler extends CI_Loader {
 	 */
 	protected function _compile_controller_info()
 	{
-		$output = $this->CI->router->fetch_class()."/".$this->CI->router->fetch_method();
+		$output = $this->CI->router->class."/".$this->CI->router->method;
 
 		return $output;
 	}
@@ -533,16 +549,19 @@ class CI_Profiler extends CI_Loader {
 				{
 					if (is_numeric($key))
 					{
-						$output[$key] = "'$val'";
+						$output[$key] = print_r($val,true);
 					}
 
 					if (is_array($val) || is_object($val))
 					{
-						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
+						if (is_object($val))
+							$output[$key] = json_decode(json_encode($val), true);
+						else
+							$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
 					}
 					else
 					{
-						$output[$key] = htmlspecialchars(stripslashes($val));
+						$output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
 					}
 				}
 			}
@@ -562,7 +581,7 @@ class CI_Profiler extends CI_Loader {
 	 */
 	public function _compile_view_data()
 	{
-		$output = '';
+		$output = array();
 
 		foreach ($this->_ci_cached_vars as $key => $val)
 		{
